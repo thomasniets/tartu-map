@@ -1,0 +1,56 @@
+h1 {
+  color: red;
+}
+.blur {
+   color: transparent;
+   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+p {
+  text-indent:30px;
+  text-align: left;
+}
+a:link {
+    background-color: yellow;
+}
+a:visited {
+    color: pink;
+}
+a:hover {
+  background-color: green;
+}
+#a {
+  text-decoration:line-through;
+  text-shadow: 1px 1px 2px black, 0 0 1em red;
+  color: white;
+  font-size: 2em;
+}
+#b {
+  text-decoration:overline;
+}
+#c {
+  text-transform: capitalize;
+}
+#d {
+  text-transform: uppercase;
+}
+#e {
+  transform: rotate(50deg);
+}
+
+/*
+transform: scale(-1, 1) — отражение по горизонтали;
+transform: scale(1, -1) — отражение по вертикали;
+transform: scale(-1, -1) — одновременное отражение по горизонтали и вертикали.
+*/
+
+.container {
+  /*display: inline-block;*/
+  display:grid;
+  grid-template-columns: 6fr 2fr;/*тут можно в пикселях или частях экрана (fr)*/
+  grid-template-rows: 200px;
+  grid-gap: 1em;
+}
+.article, .sidebar {
+  background:#ccc;
+  padding:1em;
+}
