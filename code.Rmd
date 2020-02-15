@@ -1,0 +1,54 @@
+---
+title: "Tartu Routes"
+author: "Viktorija Vasyukova"
+date: "2/15/2020"
+output: html_notebook
+---
+```{r}
+library("leaflet")
+library("readr")
+library("dplyr")
+library("htmltools")
+library("lubridate")
+library("sf")
+library("leafpop")
+library("mapview")
+```
+
+```{r}
+data <- data.frame(rbind(c("delta",58.385222, 26.725056,"Institute of Computer Science of University of Tartu"),
+              c("museum",58.380748, 26.724239,"Tartu Art Museum"),
+              c("bridge",58.380661, 26.725357,"Kaarsild"),
+              c("bridge2",58.384828, 26.723474,"Another Bridge"),
+              c("river",58.384437, 26.724915,"Emajõgi"),
+              c("bar",58.377895, 26.721535,"NAIIV"),
+              c("library",58.376998, 26.720279,"University of Tartu Library"),
+              c("sculpt",58.378905, 26.724536, "Father and Son sculpture"),
+              c("home",58.374776, 26.714421,"My current home")),  stringsAsFactors = FALSE)
+colnames(data) <-  c("name","latitude","longitude","text")
+options(digits=8)
+data$longitude <- as.double(data$longitude)
+data$latitude <- as.double(data$latitude)
+```
+
+```{r}
+m <- data %>% 
+  leaflet(width = "100%") %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  addCircleMarkers(lng = ~longitude, lat = ~latitude,
+                   popup = ~htmlEscape(as.character(text)),
+                   radius = ~8,
+                   color = ~"rosybrown",
+                   stroke = FALSE, fillOpacity = 0.9) %>% 
+  addPolylines(lng = ~longitude[c(9,7,6,8,2,3,5,1,4,9)], lat = ~latitude[c(9,7,6,8,2,3,5,1,4,9)],color = "grey", weight = 3,
+  opacity = 0.8, dashArray="8", fill = TRUE, fillColor = "lavenderblush",
+  fillOpacity = 0.4)
+    
+```
+
+
+```{r}
+mapshot(m, url = "map.html",remove_controls = c("zoomControl", "layersControl", "homeButton",
+  "scaleBar"))
+```
+
